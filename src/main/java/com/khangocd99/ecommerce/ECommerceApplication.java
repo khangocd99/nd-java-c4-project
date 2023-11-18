@@ -11,10 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableJpaRepositories("com.khangocd99.ecommerce.model.persistence.repositories")
 @EntityScan("com.khangocd99.ecommerce.model.persistence")
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-public class SareetaApplication {
+public class ECommerceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SareetaApplication.class, args);
+        SpringApplication.run(ECommerceApplication.class, args);
     }
 
     @Bean
