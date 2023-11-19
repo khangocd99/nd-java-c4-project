@@ -2,11 +2,11 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %level [%t] %c - %m%n"/>
+            <PatternLayout pattern="%d %level [%t] %c %M() - %m%n"/>
         </Console>
         <File name="File" fileName="./logs/eCommerceApp.log" append="true">
             <PatternLayout>
-                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level - %msg%n</Pattern>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %c %M() %-5level - %msg%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
