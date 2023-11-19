@@ -87,4 +87,62 @@ public class CartControllerTest {
         assertNotNull(response);
         assertEquals(404, response.getStatusCodeValue());
     }
+
+    @Test
+    public void remove_from_cart_happy_path() {
+        ModifyCartRequest modifyCartRequest = new ModifyCartRequest();
+        modifyCartRequest.setUsername("test");
+        modifyCartRequest.setItemId(1);
+        modifyCartRequest.setQuantity(1);
+        ResponseEntity<Cart> addItemResponse = cartController.addTocart(modifyCartRequest);
+        assertNotNull(addItemResponse);
+        assertEquals(200, addItemResponse.getStatusCodeValue());
+        assertEquals(1, addItemResponse.getBody().getItems().size());
+        ModifyCartRequest removeCartRequest = new ModifyCartRequest();
+        removeCartRequest.setUsername("test");
+        removeCartRequest.setItemId(1);
+        removeCartRequest.setQuantity(1);
+        ResponseEntity<Cart> removeItemResponse = cartController.removeFromcart(removeCartRequest);
+        assertNotNull(removeItemResponse);
+        assertEquals(200, removeItemResponse.getStatusCodeValue());
+        assertEquals(0, removeItemResponse.getBody().getItems().size());
+    }
+
+    @Test
+    public void remove_from_cart_unhappy_path_username_not_found() {
+        ModifyCartRequest modifyCartRequest = new ModifyCartRequest();
+        modifyCartRequest.setUsername("test");
+        modifyCartRequest.setItemId(1);
+        modifyCartRequest.setQuantity(1);
+        ResponseEntity<Cart> addItemResponse = cartController.addTocart(modifyCartRequest);
+        assertNotNull(addItemResponse);
+        assertEquals(200, addItemResponse.getStatusCodeValue());
+        assertEquals(1, addItemResponse.getBody().getItems().size());
+        ModifyCartRequest removeCartRequest = new ModifyCartRequest();
+        removeCartRequest.setUsername("unknown");
+        removeCartRequest.setItemId(1);
+        removeCartRequest.setQuantity(1);
+        ResponseEntity<Cart> removeItemResponse = cartController.removeFromcart(removeCartRequest);
+        assertNotNull(removeItemResponse);
+        assertEquals(404, removeItemResponse.getStatusCodeValue());
+    }
+
+    @Test
+    public void remove_from_cart_unhappy_path_item_not_found() {
+        ModifyCartRequest modifyCartRequest = new ModifyCartRequest();
+        modifyCartRequest.setUsername("test");
+        modifyCartRequest.setItemId(1);
+        modifyCartRequest.setQuantity(1);
+        ResponseEntity<Cart> addItemResponse = cartController.addTocart(modifyCartRequest);
+        assertNotNull(addItemResponse);
+        assertEquals(200, addItemResponse.getStatusCodeValue());
+        assertEquals(1, addItemResponse.getBody().getItems().size());
+        ModifyCartRequest removeCartRequest = new ModifyCartRequest();
+        removeCartRequest.setUsername("test");
+        removeCartRequest.setItemId(3);
+        removeCartRequest.setQuantity(1);
+        ResponseEntity<Cart> removeItemResponse = cartController.removeFromcart(removeCartRequest);
+        assertNotNull(removeItemResponse);
+        assertEquals(404, removeItemResponse.getStatusCodeValue());
+    }
 }
